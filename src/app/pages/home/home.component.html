@@ -1,3 +1,29 @@
-<h2>Olympic games app</h2>
-<hr />
-<p>{{ (olympics$ | async)?.length }} data loaded</p>
+
+<div class="loading-shade"*ngIf="isLoading$ | async; else home_page"></div>
+<ng-template #home_page>
+    <div class="error" *ngIf="error$ | async as error; else page"><span>{{ error }}</span></div>
+    <ng-template #page>
+        <h2 class="content-title"><span>Medals per Country</span></h2>
+        <div class="columns">
+            <div class="column">
+                <div class="column-title"><span>Number of JOs</span></div>
+                <div class="column-value">{{ numberOfJOs }}</div>
+            </div>
+            <div class="column">
+                <div class="column-title"><span>Number of countries</span></div>
+                <div class="column-value">{{ numberOfCountries }}</div>
+            </div>
+        </div>
+        <div class="chart">
+            <canvas 
+                baseChart 
+                width="600"
+                height="400"
+                [data]="pieChartData" 
+                [options]="pieChartOptions" 
+                [type]="pieChartType" 
+                [plugins]="pieChartPlugins"
+            ></canvas>
+        </div>
+    </ng-template>
+</ng-template>
