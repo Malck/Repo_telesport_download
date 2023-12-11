@@ -1,31 +1,48 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+
+import { catchError, filter, finalize, map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+
+import { Olympic } from '../models/Olympic';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OlympicService {
+  
   private olympicUrl = './assets/mock/olympic.json';
-  private olympics$ = new BehaviorSubject<any>(undefined);
+  private _olympics = new BehaviorSubject<Olympic[]>([]);
+  private _loading = new BehaviorSubject<Boolean>(false);
+  private _error = new BehaviorSubject<String>('');
+
+  isLoading$ = this._loading.asObservable();
+  error$ = this._error.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  loadInitialData() {
-    return this.http.get<any>(this.olympicUrl).pipe(
-      tap((value) => this.olympics$.next(value)),
+  loadInitialData(): Observable<Olympic[]> {
+    this._loading.next(true);
+    return this.http.get<Olympic[]>(this.olympicUrl).pipe(
+      tap((value) => {
+        if (Array.isArray(value) && value.length > 0) {
+          this._error.next('');
+          this._olympics.next(value);
+        } else {
+          this._error.next('No data found');
+        }
+      }),
       catchError((error, caught) => {
-        // TODO: improve error handling
-        console.error(error);
-        // can be useful to end loading state and let the user know something went wrong
-        this.olympics$.next(null);
-        return caught;
-      })
+        this._error.next('An error occured retrieving data');
+        throw caught;
+      }),
+      finalize(() => this._loading.next(false))
     );
   }
 
-  getOlympics() {
-    return this.olympics$.asObservable();
-  }
+  getOlympics(): Observable<Olympic[]> {
+    return this._olympics.asObservable().pipe(
+      filter(value => Array.isArray(value) && value.length > 0)
+    );
+}
 }
