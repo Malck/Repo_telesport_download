@@ -3,9 +3,7 @@
 <ng-template #country_page>
     <div class="error" *ngIf="error$ | async as error; else page">{{ error }}</div>
     <ng-template #page>
-        <div class="back">
-            <a class="btn" routerLink=""><span class="space20"></span><span>Back</span></a>
-        </div>
+        
         <h2 class="content-title"><span>{{ title }}</span></h2>
         <div class="columns">
             <div class="column">
@@ -28,6 +26,12 @@
                 [options]="lineChartOptions" 
                 [type]="lineChartType" 
             ></canvas>
+        </div>
+        <div class="back">
+            <a class="btn" routerLink="">
+                <span class="space20"></span> 
+                <span>Back to homePage</span>
+            </a>
         </div>
     </ng-template>
 </ng-template>
