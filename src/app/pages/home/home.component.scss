@@ -1,6 +1,7 @@
 .content-title {
     width: 250px;
     margin: 20px auto;
+    margin-top: 10vh;
     text-align: center;
     padding: 10px;
     border-radius: 5px;
@@ -8,6 +9,7 @@
 }
 .content-title span {
     color: white;
+    font-weight: 400;
 }
 .chart {
     margin: auto;
@@ -29,10 +31,13 @@
     border: solid 2px #03a9f4;
     border-radius: 10px;
 }
+.column-value {
+    font-weight: bold;
+}
 @media (min-width: 785px) {
     .chart {
-        width: 700px;
-        height: 700px;
+        width: 500px;
+        height: 500px;
     }
 }
 @media (max-width: 784px) {
@@ -41,6 +46,24 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+}
+@media (max-width: 500px) {
+    .chart {
+        width: 360px;
+        height: 360px; 
+    }
+    .content-title {
+        margin-top: 20px;
+    }
+}
+@media (max-width: 450px) {
+    .chart {
+        width: 200px;
+        height: 200px; 
+    }
+    .content-title {
+        margin-top: 20px;
     }
 }
 
