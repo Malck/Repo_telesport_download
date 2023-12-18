@@ -51,7 +51,7 @@ export class OlympicService {
       filter(value => Array.isArray(value) && value.length > 0),
       map(olympics => {
         let filtered = olympics.filter(olympic => olympic.id == id);
-        if (filtered.length > 0) {
+        if (filtered.length == 0) {
           throw new Error('Country is not found')
       }
       return filtered[0];
