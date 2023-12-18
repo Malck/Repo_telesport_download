@@ -8,6 +8,7 @@
 }
 .content-title span {
     color: white;
+    font-weight: 400;
 }
 .chart {
     margin: auto;
@@ -29,6 +30,23 @@
     border: solid 2px #03a9f4;
     border-radius: 10px;
 }
+.column-value {
+    font-weight: bold;
+}
+
+.back {
+    display: flex;
+    justify-content: center;
+}
+
+/*app-country {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+} */
+
 @media (min-width: 785px) {
     .chart {
         width: 700px;

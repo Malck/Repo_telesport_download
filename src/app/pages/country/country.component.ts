@@ -14,6 +14,7 @@ import { Observable,Subscription} from 'rxjs';
   templateUrl: './country.component.html',
   styleUrl: './country.component.scss',
 })
+
 export class CountryComponent implements OnInit, OnDestroy {
 
   title: string = '';
@@ -28,7 +29,6 @@ export class CountryComponent implements OnInit, OnDestroy {
   isLoading$!: Observable<Boolean>;
   error$!: Observable<String>;
   olympicSub!: Subscription;
-
 
   constructor( private olympicService: OlympicService,
                private route: ActivatedRoute,
