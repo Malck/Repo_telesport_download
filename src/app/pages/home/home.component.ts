@@ -2,7 +2,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { Observable, of } from 'rxjs';
+import { Observable,Subscription} from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { Participation } from 'src/app/core/models/Participation';
 import { OlympicService } from 'src/app/core/services/olympic.service';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,OnDestroy {
   
   numberOfJOs: number = 0;
   numberOfCountries: number = 0;
@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   
   isLoading$!: Observable<Boolean>;
   error$!: Observable<String>;
+  olympicSub!: Subscription;
 
   constructor(private olympicService: OlympicService,
               private router: Router) {}
@@ -36,9 +37,12 @@ export class HomeComponent implements OnInit {
     this.isLoading$ = this.olympicService.isLoading$;
     this.error$ = this.olympicService.error$
     this.setChartConfig();
-    this.olympicService.getOlympics().subscribe(
+    this.olympicSub = this.olympicService.getOlympics().subscribe(
       (data: Olympic[]) => this.fillData(data)
     );
+  }
+  ngOnDestroy(): void {
+    this.olympicSub.unsubscribe();
   }
 
   private fillData(olympics: Olympic[]): void {
