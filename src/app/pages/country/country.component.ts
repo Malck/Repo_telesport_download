@@ -27,6 +27,7 @@ export class CountryComponent implements OnInit {
   isLoading$!: Observable<Boolean>;
   error$!: Observable<String>;
 
+
   constructor( private olympicService: OlympicService,
                private route: ActivatedRoute,
                private router: Router ) {}
@@ -35,14 +36,14 @@ export class CountryComponent implements OnInit {
     this.isLoading$ = this.olympicService.isLoading$;
     this.error$ = this.olympicService.error$;
     this.setChartConfig();
-    let id = this.route.snapshot.params['id'];
-    this.olympicService.getOlympicById(id).subscribe({
+    const id:string = this.route.snapshot.params['id'];
+    this.olympicService.getOlympicById(+id).subscribe({
       next: (data: Olympic) => {
         this.setTitle(data);
         this.setStatistics(data);
         this.setChart(data);
       },
-      error: (msg: any) => this.router.navigateByUrl('Country is not found')
+      error: (_msg: string) => this.router.navigateByUrl('Country is not found')
     });
   }
 
