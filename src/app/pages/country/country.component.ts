@@ -3,8 +3,7 @@ import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Olympic } from 'src/app/core/models/Olympic';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartConfiguration, ChartType } from 'chart.js';
-//import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
+import { Observable,Subscription} from 'rxjs';
 import { Statistic } from 'src/app/core/models/Statistic';
 
 /**
@@ -15,7 +14,7 @@ import { Statistic } from 'src/app/core/models/Statistic';
   templateUrl: './country.component.html',
   styleUrl: './country.component.scss',
 })
-export class CountryComponent implements OnInit {
+export class CountryComponent implements OnInit, OnDestroy {
 
   title: string = '';
   statistics: Statistic[] = [];
@@ -26,6 +25,7 @@ export class CountryComponent implements OnInit {
 
   isLoading$!: Observable<Boolean>;
   error$!: Observable<String>;
+  olympicSub!: Subscription;
 
 
   constructor( private olympicService: OlympicService,
@@ -37,7 +37,7 @@ export class CountryComponent implements OnInit {
     this.error$ = this.olympicService.error$;
     this.setChartConfig();
     const id:string = this.route.snapshot.params['id'];
-    this.olympicService.getOlympicById(+id).subscribe({
+    this.olympicSub = this.olympicService.getOlympicById(+id).subscribe({
       next: (data: Olympic) => {
         this.setTitle(data);
         this.setStatistics(data);
@@ -45,6 +45,9 @@ export class CountryComponent implements OnInit {
       },
       error: (_msg: string) => this.router.navigateByUrl('Country is not found')
     });
+  }
+  ngOnDestroy(): void {
+    this.olympicSub.unsubscribe();
   }
 
   /**
