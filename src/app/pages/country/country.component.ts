@@ -4,11 +4,11 @@ import { Olympic } from 'src/app/core/models/Olympic';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { Observable,Subscription} from 'rxjs';
-import { Statistic } from 'src/app/core/models/Statistic';
 
 /**
- * Single country page component.
+ * Country page component.
  */
+
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
@@ -17,8 +17,10 @@ import { Statistic } from 'src/app/core/models/Statistic';
 export class CountryComponent implements OnInit, OnDestroy {
 
   title: string = '';
-  statistics: Statistic[] = [];
-  
+  entries: number = 0;
+  totalmedals: number = 0;
+  athletes: number = 0;
+
   lineChartData!: ChartConfiguration['data'];
   lineChartOptions!: ChartConfiguration['options'];
   lineChartType!: ChartType;
@@ -40,7 +42,9 @@ export class CountryComponent implements OnInit, OnDestroy {
     this.olympicSub = this.olympicService.getOlympicById(+id).subscribe({
       next: (data: Olympic) => {
         this.setTitle(data);
-        this.setStatistics(data);
+        this.setEntries(data);
+        this.setTotalMedals(data);
+        this.setAthletes(data);
         this.setChart(data);
       },
       error: (_msg: string) => this.router.navigateByUrl('Country is not found')
@@ -50,61 +54,30 @@ export class CountryComponent implements OnInit, OnDestroy {
     this.olympicSub.unsubscribe();
   }
 
-  /**
-   * Set the statistics component to display number of entries, number of medals 
-   * and number of athletes informations.
+/**
+   * Set the country title , his number of entries , his total of medals and the number of athletes.
    * @param {Olympic} olympic An olympic item.
-   */
-  private setStatistics(olympic: Olympic): void {
-    this.setNumberOfEntries(olympic);
-    this.setNumberOfMedals(olympic);
-    this.setNumberOfAthletes(olympic);
-  }
-  
-  /**
-   * Set number of entries information.
-   * @param {Olympic} olympic An olympic item.
-   */
-  private setNumberOfEntries(olympic: Olympic) {
-    let title = 'Number of entries';
-    let value = olympic.participations.length;
-    this.statistics.push({title, value}); 
-  }
-  
-  /**
-   * Set number of medals information.
-   * @param {Olympic} olympic An olympic item.
-   */
-  private setNumberOfMedals(olympic: Olympic) {
-    let title = 'Total number of medals';
-    let value = 0;
-    olympic.participations.forEach(participation => value += participation.medalsCount);
-    this.statistics.push({title, value}); 
-  }
-  
-  /**
-   * Set number of athletes information.
-   * @param {Olympic} olympic An olympic item.
-   */
-  private setNumberOfAthletes(olympic: Olympic) {
-    let title = 'Total number of athletes';
-    let value = 0;
-    olympic.participations.forEach(participation => value += participation.athleteCount);
-    this.statistics.push({title, value}); 
-  }
-  
-  /**
-   * Set number the country title.
-   * @param {Olympic} olympic An olympic item.
-   */
-  private setTitle(olympic: Olympic) {
-    this.title = olympic.country;
-  }
+*/
+
+private setTitle(olympic: Olympic) {
+  this.title = olympic.country;
+}
+private setEntries(olympic: Olympic) {
+  this.entries = olympic.participations.length;
+}
+private setTotalMedals(olympic: Olympic) {
+  this.totalmedals = 0
+  olympic.participations.forEach(participation => this.totalmedals += participation.medalsCount);
+}
+private setAthletes(olympic: Olympic) {
+  olympic.participations.forEach(participation => this.athletes += participation.athleteCount);
+}
 
   /**
    * Set the chart data.
    * @param {Olympic} olympic An olympic item.
    */
+
   private setChart(olympic: Olympic): void {
     let labels: number[] = [];
     let data: number[] = [];
@@ -126,10 +99,11 @@ export class CountryComponent implements OnInit, OnDestroy {
       labels: labels,
     };
   }
-  
+
   /**
    * Set the chart options and type.
    */
+
   private setChartConfig(): void {
     this.setChartOptions();
     this.setChartType();
@@ -138,6 +112,7 @@ export class CountryComponent implements OnInit, OnDestroy {
   /**
    * Set the chart options.
    */
+
   private setChartOptions() {
     this.lineChartOptions = {
       elements: {
@@ -174,7 +149,9 @@ export class CountryComponent implements OnInit, OnDestroy {
   /**
    * Set the chart type.
    */
+
   private setChartType() {
     this.lineChartType = 'line';
   }
+
 }

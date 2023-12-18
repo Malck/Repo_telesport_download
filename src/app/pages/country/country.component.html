@@ -7,7 +7,20 @@
             <a class="btn" routerLink=""><span class="space20"></span><span>Back</span></a>
         </div>
         <h2 class="content-title"><span>{{ title }}</span></h2>
-        
+        <div class="columns">
+            <div class="column">
+                <div class="column-title"><span>Number of entries</span></div>
+                <div class="column-value">{{ entries }}</div>
+            </div>
+            <div class="column">
+                <div class="column-title"><span>Total number medals</span></div>
+                <div class="column-value">{{ totalmedals }}</div>
+            </div>
+            <div class="column">
+                <div class="column-title"><span>Total number of athletes</span></div>
+                <div class="column-value">{{ athletes }}</div>
+            </div>
+        </div>
         <div class="chart">
             <canvas 
                 baseChart 
