@@ -35,3 +35,14 @@
         height: 700px;
     }
 }
+@media (max-width: 784px) {
+    .chart {
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+
+

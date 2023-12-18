@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChartConfiguration, ChartType } from 'chart.js';
 //import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
-//import { Statistic } from 'src/app/core/models/Statistic';
+import { Statistic } from 'src/app/core/models/Statistic';
 
 /**
  * Single country page component.

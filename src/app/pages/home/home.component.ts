@@ -1,5 +1,5 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import DatalabelsPlugin from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { Observable, of } from 'rxjs';
@@ -108,7 +108,7 @@ export class HomeComponent implements OnInit {
       },
       onClick: (event, elements, chart) => {
         let index = elements[0].index;
-        this.router.navigateByUrl('country/' + (index + 1));
+        this.router.navigateByUrl('Country/' + (index + 1));
       }
     };
   }

@@ -44,5 +44,18 @@ export class OlympicService {
     return this._olympics.asObservable().pipe(
       filter(value => Array.isArray(value) && value.length > 0)
     );
-}
+  }
+
+  getOlympicById(id: number): Observable<Olympic> {
+    return this._olympics.asObservable().pipe(
+      filter(value => Array.isArray(value) && value.length > 0),
+      map(olympics => {
+        let filtered = olympics.filter(olympic => olympic.id == id);
+        if (filtered.length > 0) {
+          throw new Error('Country is not found')
+      }
+      return filtered[0];
+    }),
+    )
+  }
 }
