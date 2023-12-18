@@ -1,6 +1,7 @@
 .content-title {
     width: 250px;
     margin: 20px auto;
+    margin-top: 10vh;
     text-align: center;
     padding: 10px;
     border-radius: 5px;
@@ -50,7 +51,7 @@
 @media (min-width: 785px) {
     .chart {
         width: 700px;
-        height: 700px;
+        height: 500px;
     }
 }
 @media (max-width: 784px) {
@@ -61,3 +62,18 @@
         justify-content: center;
     }
 }
+@media (max-width: 650px) {
+    .columns{
+        width: 210px;
+        display: flex;
+        flex-direction: column;
+    }
+    .column {
+        margin: 10px;
+        display: flex;
+        
+    }
+}
+
+
+
