@@ -65,7 +65,16 @@
     .content-title {
         margin-top: 20px;
     }
+    .columns {
+        width: 210px;
+        display: flex;
+        flex-direction: column;
+      }
+      .column {
+        margin: 10px;
+      }
 }
+
 
 
 
