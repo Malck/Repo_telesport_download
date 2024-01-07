@@ -1,6 +1,23 @@
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## Environment
+
+- Angular 17.0.5
+- Typescript 5.2.2
+- NodeJS 20.10.0 
+- Ng2-charts 5.0.3
+- Npm 10.2.4
+- Rxjs 7.5.0
+
+## Prepare your setup 
+- Download this project in your computer 
+- Use VSCode ( or another code editor ) to open it 
+
+## Installation
+
+First if it is not already done you will have to install Node.js and npm (node package manager).
+
+Run `npm install -g @angular/cli` to install the latest version of Angular.
 
 Don't forget to install your node_modules before starting (`npm install`).
 
@@ -12,18 +29,13 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Where to start
+## Author 
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+| @Malck |
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
 
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
 
-You're now ready to implement the requested features.
 
-Good luck!
+
+
