@@ -1,6 +1,7 @@
 
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+//import DatalabelsPlugin from 'chartjs-plugin-datalabels';
+import DatalabelsPlugin, { Context } from 'chartjs-plugin-datalabels';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { Observable,Subscription} from 'rxjs';
 import { Olympic } from 'src/app/core/models/Olympic';
@@ -99,15 +100,15 @@ export class HomeComponent implements OnInit,OnDestroy {
           display: false
         },
         datalabels: {
-          formatter: (value: any, ctx: any) => {
+          formatter: (value: string, ctx: Context) => {
             if (ctx.chart.data.labels) {
               return ctx.chart.data.labels[ctx.dataIndex];
             }
+            return null;
           },
         },
         tooltip: {
           displayColors: true,
-
         }
       },
       onClick: (event, elements, chart) => {
