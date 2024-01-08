@@ -1,16 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { catchError, filter, finalize, map, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Olympic } from '../models/Olympic';
 
 @Injectable({
   providedIn: 'root',
 })
 export class OlympicService {
-  
   private olympicUrl = './assets/mock/olympic.json';
   private _olympics = new BehaviorSubject<Olympic[]>([]);
   private _loading = new BehaviorSubject<Boolean>(false);
@@ -41,21 +38,21 @@ export class OlympicService {
   }
 
   getOlympics(): Observable<Olympic[]> {
-    return this._olympics.asObservable().pipe(
-      filter(value => Array.isArray(value) && value.length > 0)
-    );
+    return this._olympics
+      .asObservable()
+      .pipe(filter((value) => Array.isArray(value) && value.length > 0));
   }
 
   getOlympicById(id: number): Observable<Olympic> {
     return this._olympics.asObservable().pipe(
-      filter(value => Array.isArray(value) && value.length > 0),
-      map(olympics => {
-        let filtered = olympics.filter(olympic => olympic.id == id);
+      filter((value) => Array.isArray(value) && value.length > 0),
+      map((olympics) => {
+        let filtered = olympics.filter((olympic) => olympic.id == id);
         if (filtered.length == 0) {
-          throw new Error('Country is not found')
-      }
-      return filtered[0];
-    }),
-    )
+          throw new Error('Country is not found');
+        }
+        return filtered[0];
+      })
+    );
   }
 }
