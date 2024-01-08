@@ -14,7 +14,6 @@
 .chart {
     margin: auto;
 }
-
 .columns{
     display: flex;
     justify-content: space-between;
@@ -34,19 +33,10 @@
 .column-value {
     font-weight: bold;
 }
-
 .back {
     display: flex;
     justify-content: center;
 }
-
-/*app-country {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-} */
 
 @media (min-width: 785px) {
     .chart {
