@@ -1,9 +1,7 @@
-
 /**
  * Participation model.
  */
 export interface Participation {
-
     id: number;
     year: number;
     city: string;
