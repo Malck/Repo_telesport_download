@@ -1,4 +1,3 @@
-
 <div class="loading-shade"*ngIf="isLoading$ | async; else home_page"></div>
 <ng-template #home_page>
     <div class="error" *ngIf="error$ | async as error; else page"><span>{{ error }}</span></div>
